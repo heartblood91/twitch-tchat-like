@@ -57,7 +57,9 @@ const Tchat = () => {
   }
 
   React.useEffect(() => {
-    tchatRef.current.lastElementChild.scrollIntoView()
+    if (tchatRef.current.lastElementChild) {
+      tchatRef.current.lastElementChild.scrollIntoView()
+    }
 
   }, [messages])
 
