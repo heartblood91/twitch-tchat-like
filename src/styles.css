@@ -109,6 +109,7 @@ button {
 }
 .scroll-pause-helper-global.hidden {
   opacity: 0;
+  display: none;
 }
 
 .scroll-pause-helper {

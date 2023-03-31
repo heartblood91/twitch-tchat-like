@@ -82,7 +82,7 @@ const useTchat = ({
   // Scroll to the latest message
   React.useEffect(() => {
     if (tchatElRef.current?.lastElementChild && !isScrollingPaused) {
-      tchatElRef.current.lastElementChild.scrollIntoView({ behavior: 'smooth' })
+      tchatElRef.current.lastElementChild.scrollIntoView()
     }
   }, [messages, isScrollingPaused, tchatElRef])
 
