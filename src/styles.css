@@ -1,0 +1,311 @@
+/*  ------------------------------------------ */
+/* ---------------- VARIABLES ---------------- */
+/*  ------------------------------------------ */
+
+:root {
+  --tchat-border: 1px solid rgba(83, 83, 95, .48);
+  --tchat-background: #18181b;
+  --main-background: #0e0e10;
+  --main-background-light: hsla(0, 0%, 100%, .16);
+  
+  --scrollbar-width: 0.6rem;
+  --scrollbar-color: rgb(255, 255, 255, 0.5);
+
+  --font-color: #efeff1;
+  --font-size: 1.3rem;
+
+  --base-padding: 1rem;
+  --base-margin: 1rem;
+
+  --border-color: hsla(0, 0%, 100%, .16);
+}
+
+/*  ------------------------------------------ */
+/* ----------------  GENERAL  ---------------- */
+/*  ------------------------------------------ */
+
+html {
+  font-family: "Inter", "Roobert", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+  background-color: var(--main-background);
+
+  scrollbar-width: var(--scrollbar-width);
+  scrollbar-color: var(--scrollbar-color);
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  transition: 0.2s background-color linear;
+}
+
+/*  ------------------------------------------ */
+/* ---------------- SCROLLBAR ---------------- */
+/*  ------------------------------------------ */
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--main-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  border-radius: 1rem;
+}
+
+/*  ------------------------------------------ */
+/* ------------------ TCHAT ------------------ */
+/*  ------------------------------------------ */
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 0 var(--base-margin);
+  height: 95vh;
+}
+
+.tchat-container {
+  background-color: var(--tchat-background);
+  width: 34rem;
+  font-size: var(--font-size);
+  border: var(--tchat-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.tchat-header {
+  border-bottom: var(--tchat-border);
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tchat-header > h4 {
+  text-transform: uppercase;
+  color: #dedee3;
+}
+
+.tchat {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 100%;
+  padding: 0 var(--base-padding);
+  row-gap: 0.5rem;
+}
+
+.scroll-pause-helper-global {
+  z-index: 2;
+  position: absolute;
+  left: calc(50% - 118.5px);
+  top: -50px;
+  width: 215px;
+  height: 42px;
+  opacity: 1;
+  transition: opacity 0.3s 0.2s linear;
+}
+.scroll-pause-helper-global.hidden {
+  opacity: 0;
+}
+
+.scroll-pause-helper {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: var(--base-padding);
+  width: 100%;
+  position: absolute;
+  transition: opacity 0.2s linear;
+  backdrop-filter: brightness(0.4);
+}
+
+.scroll-pause-helper-container {
+  z-index: 2;
+  position: relative;
+}
+
+.scroll-pause-helper-container:hover > div {
+  border: 2px solid var(--border-color);
+  padding: calc(var(--base-padding) - 1px);
+}
+.scroll-pause-helper-container:hover > div:first-child {
+  opacity: 0;
+}
+.scroll-pause-helper-container:hover > div:last-child {
+  opacity: 1;
+  background-color: var(--main-background-light);
+}
+.scroll-pause-helper-container > div:first-child {
+  opacity: 0.8;
+  background-color: var(--main-background);
+}
+.scroll-pause-helper-container > div:last-child {
+  opacity: 0;
+}
+
+.scroll-pause-helper > button {
+  display: flex;
+  align-items: center;
+  vertical-align: baseline;
+}
+.scroll-pause-helper > button > img {
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+  object-fit: contain;
+}
+.scroll-pause-helper > button > span {
+  font-size: var(--font-size);
+  font-weight: 600;
+  color: #fff;
+}
+
+.tchat:not(:hover)::-webkit-scrollbar {
+  display: none;
+}
+
+.tchat.overflow-on:not(:hover) {
+  padding-right: calc(var(--scrollbar-width) + var(--base-padding));
+}
+
+.message-container {
+  padding: 0.5rem 1.5rem;
+  transition: 0.3s background-color ease-in-out;
+}
+
+.message-container:not(.selected):hover,
+.message-container.selected {
+  background-color: var(--main-background-light);
+  border-radius: 0.5rem;
+}
+
+.username {
+  font-weight: 700;
+}
+
+.usermessage {
+  color: var(--font-color);
+}
+
+.userbadge {
+  max-width: 1.8rem;
+  max-height: 1.8rem;
+  object-fit: contain;
+  padding: 0 5px;
+}
+
+/*  ------------------------------------------ */
+/* ---------------- TEXTAREA ---------------- */
+/*  ------------------------------------------ */
+
+.textfield-container {
+  margin: var(--base-margin) var(--base-margin) 0 var(--base-margin);
+  position: relative;
+}
+
+.textarea-container {
+  background-color: var(--main-background-light);
+  border-radius: 0.4rem;
+  padding: var(--base-padding);
+  display: flex;
+  align-items: center;
+}
+.textarea-container:not(:focus-within):hover {
+  border: 2px solid var(--border-color);
+  padding: calc(var(--base-padding) - 2px);
+}
+.textarea-container:focus-within {
+  border: 1px solid #a970ff;
+  background-color: var(--main-background);
+  padding: calc(var(--base-padding) - 1px);
+}
+.textarea-container > textarea {
+  border: 0;
+  outline: none;
+  overflow: hidden;
+  resize: none;
+  flex: 1 0 auto;
+  background-color: transparent;
+  color: var(--font-color);
+  line-height: 1.5;
+}
+
+.smiley-icon-container {
+  height: fit-content;
+  transition: 0.2s background-color linear;
+  position: relative;
+}
+.smiley-icon-container > button {
+  width: 3rem;
+  height: 3rem;
+}
+.smiley-icon-container:hover {
+  background-color: rgba(83, 83, 95, .48);
+  border-radius: 0.5rem;
+}
+.smiley-icon-container > button > img {
+  width: 100%;
+}
+
+.only-modal-container {
+  position: absolute;
+}
+.only-modal-container:not(.open) {
+  position: absolute;
+}
+
+.only-modal-container {
+  background-color: var(--main-background);
+  bottom: 55px;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-radius: 5px;
+  width: 100%;
+  padding: var(--base-padding) 0;
+  transition: opacity 0.2s linear;
+  z-index: -1;
+}
+
+.only-modal-container.open {
+  opacity: 1;
+  z-index: 4;
+}
+.only-modal-container:not(.open) {
+  opacity: 0;
+}
+
+.only-modal-container > button {
+  font-size: 3rem;
+  padding: 1rem;
+  margin: 0.5rem;
+}
+.only-modal-container > button:hover {
+  background-color: var(--main-background-light);
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+/*  ------------------------------------------ */
+/* ------------------ BUTTON ------------------ */
+/*  ------------------------------------------ */
+
+.button-container {
+  display: flex;
+  justify-content: end;
+  margin: var(--base-margin);
+  position: relative;
+}
+.button-container > button {
+  background-color: rgb(145, 71, 255);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+  padding: 0.5rem var(--base-padding);
+}
+.button-container > button:hover {
+  background-color: #772ce8;
+}
